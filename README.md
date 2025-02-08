@@ -1,4 +1,4 @@
-# [Project Name] 🎯
+# SafeGuard 🎯
 
 
 ## Basic Details
@@ -6,22 +6,21 @@
 
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Member 1: Fathima Fida - GEC Kozhikode
+- Member 2: Anjana mm - GEC Kozhikode
+- Member 3: Rana vt - GEC Kozhikode
 
 ### Hosted Project Link
 [mention your project hosted project link here]
 
 ### Project Description
-[2-3 lines about what your project does]
+Our SafeGuard system analyzes real-time crime, accident, and road condition data to provide the safest routes. It helps you avoid high-risk areas, ensuring a secure and worry-free journey.
 
 ### The Problem statement
-[What ridiculous problem are you solving?]
+SafeGuard is based on problems like high-crime areas, accident-prone roads, poor lighting, heavy traffic, and real-time hazards. It analyzes these factors to suggest the safest possible route for users.
 
 ### The Solution
-[How are you solving it? Keep it fun!]
-
+SafeGuard provides a solution to safer travel by analyzing key factors such as crime data, accident history, road conditions, and lighting. It uses real-time information to offer routes that minimize risks, ensuring a safer journey for users whether they are walking, biking, or driving. With safety scores and live alerts, SafeGuard helps users avoid hazardous areas and arrive at their destinations with peace of mind.
 ## Technical Details
 ### Technologies/Components Used
 For Software:
