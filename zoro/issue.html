@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Reporting System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 20px auto;
+    width: 300px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+#reportList {
+    margin-top: 30px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.report {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.report:last-child {
+    border-bottom: none;
+}
+
+.report h3 {
+    margin: 0;
+}
+
+.report p {
+    margin: 5px 0;
+}
+</style>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="element/logo.png" width="125px">
+        </div>          
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="index.html#home">Home</a></li>
+                            <li><a href="index.html#about">About</a></li>
+                            <li><a href="index.html#values">Values</a></li>
+                            <li><a href="index.html#service">service</a></li>
+
+                </ul>
+            </nav>
+            <img src="element/download.png" class="menu-icon" onclick="menutoggle()">
+    </div>
+    <h1>Report an Issue</h1>
+    <form id="reportForm">
+        <label for="location">Location Name:</label>
+        <input type="text" id="location" name="location" required>
+        
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+        
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+        
+        <button type="submit">Submit Report</button>
+    </form>
+
+    <h2>Reported Issues</h2>
+    <div id="reportList"></div>
+
+    <script>
+        let reports = JSON.parse(localStorage.getItem('reports')) || [];
+document.getElementById('reportForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const location = document.getElementById('location').value;
+    const description = document.getElementById('description').value;
+    const date = document.getElementById('date').value;
+    const newReport = {
+        location: location,
+        description: description,
+        date: date
+    };
+    reports.push(newReport);
+    localStorage.setItem('reports', JSON.stringify(reports));
+    document.getElementById('reportForm').reset();
+    renderReports();
+});
+function renderReports() {
+    const reportList = document.getElementById('reportList');
+    reportList.innerHTML = '';
+    reports.forEach(report => {
+        const reportDiv = document.createElement('div');
+        reportDiv.classList.add('report');
+        reportDiv.innerHTML = `
+            <h3>${report.location}</h3>
+            <p><strong>Description:</strong> ${report.description}</p>
+            <p><strong>Date:</strong> ${report.date}</p>
+        `;
+        reportList.appendChild(reportDiv);
+    });
+}
+renderReports();
+    </script>
+</body>
+
+</html>

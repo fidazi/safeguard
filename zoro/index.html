@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Guard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div  id="home" class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="element/logo.png" width="125px">
+                </div>          
+                    <nav>
+                        <ul id="MenuItems">
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#values">Values</a></li>
+                            <li><a href="login.html">login</a></li>
+
+                        </ul>
+                    </nav>
+                    <img src="element/download.png" class="menu-icon" onclick="menutoggle()">
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h1>
+                        UNLOCK.PROTECT.CONTROL.
+                    </h1>    
+                    <p>
+                        Safe Guard Got You!
+                    </p><div class="btn-row">
+                    <a class="btn" href="dest.html">Route Comparison tool</a>
+                    <a class="btn" href="issue.html">Report An Issue</a>
+                    <a class="btn" href="sg.html">Safety Guide Lines</a>
+                    
+                </div>
+                <a class="btn1" id="sosButton">SOS</a>
+
+                </div>
+            </div>
+            <!-- About Us Section -->
+<div id="about" class="about-section">
+    <div class="container">
+        <h2>About Us</h2>
+        <p>
+            Welcome to SafeRoute, your trusted companion for finding the safest paths to your destination.
+         Our mission is to ensure that every journey—whether by foot, bike, or vehicle—is as secure as possible.
+        </p>
+    </div>
+</div>
+
+<!-- Our Values Section -->
+<div id="values" class="values-section">
+    <div class="container">
+        <h2>Our Values</h2>
+        <p>
+            Traditional navigation apps focus on speed, but SafeRoute prioritizes safety. We analyze multiple factors, including:
+        </p>
+        <ul>
+            <li><strong>Crime Data:</strong>Avoids high-crime areas based on real-time reports.</li>
+            <li><strong>Accident History:</strong> Routes away from accident-prone roads.</li>
+            <li><strong>Lighting & Visibility:</strong> Prefers well-lit streets for nighttime travel.</li>
+            <li><strong> User Reports & AI Insights:</strong>Community-driven safety alerts.</li>
+        </ul>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="element/logo.png" width="125px">
+            </div>
+            <div class="footer-nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#values">Our Values</a></li>
+                    <li><a href="#faq">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-info">
+                <p>&copy; 2025 SafeGuard. All rights reserved.</p>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-about">
+            <p><strong>About SafeGuard</strong></p>
+            <p>
+                At SafeRoute, we redefine navigation by prioritizing safety over speed. Unlike traditional mapping services that focus solely on the fastest routes, we analyze real-time data to guide you through the safest paths—whether you’re walking, cycling, or driving.
+            </p>
+        </div>
+        <div class="footer-contact">
+            <p><strong>Contact Us</strong></p>
+            <p>If you have any questions or need assistance, feel free to reach out:</p>
+            <p>Email: <a href="mailto:support@safeguard.com">support@safeguard.com</a></p>
+        </div>
+    </div>
+</footer>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        document.getElementById("sosButton").addEventListener("click", function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(sendLocation, showError);
+        } else {
+            document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+        }
+    });
+    
+    function sendLocation(position) {
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+    
+        // Show the location on the page (for debugging, you can remove this part if unnecessary)
+        document.getElementById("location").innerHTML = "Latitude: " + lat + "<br>Longitude: " + lon;
+    
+        // Get the selected phone numbers from the dropdown
+        var selectedContacts = Array.from(document.getElementById("contactList").selectedOptions).map(option => option.value);
+    
+        // Send the location to each selected contact
+        selectedContacts.forEach(phoneNumber => {
+            sendLocationToContact(phoneNumber, lat, lon);
+        });
+    }
+    
+    function sendLocationToContact(phoneNumber, lat, lon) {
+        // Make a request to the backend API to send the location via SMS
+        fetch('/sendLocation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                phoneNumber: phoneNumber,
+                latitude: lat,
+                longitude: lon
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(`Location sent to ${phoneNumber}`);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+    
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                document.getElementById("location").innerHTML = "User denied the request for Geolocation.";
+                break;
+            case error.POSITION_UNAVAILABLE:
+                document.getElementById("location").innerHTML = "Location information is unavailable.";
+                break;
+            case error.TIMEOUT:
+                document.getElementById("location").innerHTML = "The request to get user location timed out.";
+                break;
+            case error.UNKNOWN_ERROR:
+                document.getElementById("location").innerHTML = "An unknown error occurred.";
+                break;
+        }
+    }</script>
+  
+</body>
+</html>
